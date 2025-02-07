@@ -7,6 +7,8 @@ const cors = require("cors");
 const connect = require("./db/connect");
 const userRoutes = require("./routes/user.route");
 const captainRoutes = require("./routes/captain.route");
+const mapsRoutes = require("./routes/maps.route");
+const rideRoutes = require("./routes/ride.route");
 
 connect();
 
@@ -16,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/users", userRoutes);
-console.log("Here in app.js");
-
 app.use("/captains", captainRoutes);
+app.use("/maps", mapsRoutes);
+app.use("/rides", rideRoutes);
 
 app.get("/", (req, res) => {
   res.send(
