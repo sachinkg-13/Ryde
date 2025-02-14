@@ -3,17 +3,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import axios from "axios";
 import "remixicon/fonts/remixicon.css";
-// import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
-// import { SocketContext } from "../context/SocketContext";
+import { SocketContext } from "../context/SocketContest";
 import { useContext } from "react";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LocationSearchPanel from "../components/LocationSearchPanel";
-// import LiveTracking from "../components/LiveTracking";
+import LiveTracking from "../components/LiveTracking";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -38,24 +37,27 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  // const { socket } = useContext(SocketContext);
+  const { socket } = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
+  // console.log(user);
 
-  // useEffect(() => {
-  //   socket.emit("join", { userType: "user", userId: user._id });
-  // }, [user]);
+  useEffect(() => {
+    socket.emit("join", { userType: "user", userId: user._id });
+  }, [user]);
 
-  // socket.on("ride-confirmed", (ride) => {
-  //   setVehicleFound(false);
-  //   setWaitingForDriver(true);
-  //   setRide(ride);
-  // });
+  socket.on("ride-confirmed", (ride) => {
+    console.log("ride confirmed");
+    setVehicleFound(false);
+    setWaitingForDriver(true);
+    setRide(ride);
+  });
 
-  // socket.on("ride-started", (ride) => {
-  //   console.log("ride");
-  //   setWaitingForDriver(false);
-  //   navigate("/riding", { state: { ride } }); // Updated navigate to include ride data
-  // });
+  socket.on("ride-started", (ride) => {
+    console.log(ride);
+    console.log("ride-started");
+    setWaitingForDriver(false);
+    navigate("/riding", { state: { ride } }); // Updated navigate to include ride data
+  });
 
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);
@@ -69,6 +71,7 @@ const Home = () => {
           },
         }
       );
+      console.log(response.data);
       setPickupSuggestions(response.data);
     } catch {
       // handle error
@@ -87,6 +90,7 @@ const Home = () => {
           },
         }
       );
+      console.log(response.data);
       setDestinationSuggestions(response.data);
     } catch {
       // handle error
@@ -182,38 +186,39 @@ const Home = () => {
     [waitingForDriver]
   );
 
-  // async function findTrip() {
-  //   setVehiclePanel(true);
-  //   setPanelOpen(false);
+  async function findTrip() {
+    setVehiclePanel(true);
+    setPanelOpen(false);
 
-  //   const response = await axios.get(
-  //     `${import.meta.env.VITE_BASE_URL}/rides/get-fare`,
-  //     {
-  //       params: { pickup, destination },
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     }
-  //   );
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/rides/get-fare`,
+      {
+        params: { pickup, destination },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
-  //   setFare(response.data);
-  // }
-
-  // async function createRide() {
-  //   const response = await axios.post(
-  //     `${import.meta.env.VITE_BASE_URL}/rides/create`,
-  //     {
-  //       pickup,
-  //       destination,
-  //       vehicleType,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     }
-  //   );
-  // }
+    setFare(response.data);
+  }
+  async function createRide() {
+    console.log("creating ride");
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/rides/create`,
+      {
+        pickup,
+        destination,
+        vehicleType,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(response.data);
+  }
 
   return (
     <div className="h-screen bg-green-300 relative overflow-hidden">
@@ -223,9 +228,9 @@ const Home = () => {
         alt=""
       />
       {/* image for temporary use  */}
-      {/* <div className="h-screen w-screen">
+      <div className="h-screen w-screen">
         <LiveTracking />
-      </div> */}
+      </div>
       <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">
         <div className="h-[40%] md:w-[30%] mx-auto rounded-lg p-6 bg-white relative">
           <h5
@@ -269,14 +274,14 @@ const Home = () => {
             />
           </form>
           <button
-            // onClick={findTrip}
+            onClick={findTrip}
             className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
           >
             Find Trip
           </button>
         </div>
 
-        <div ref={panelRef} className="bg-white md:w-[30%] mx-auto  h-0">
+        <div ref={panelRef} className="bg-white h-0">
           <LocationSearchPanel
             suggestions={
               activeField === "pickup"
@@ -309,11 +314,12 @@ const Home = () => {
         className="fixed w-full z-10 bottom-0 translate-y-full "
       >
         <ConfirmRide
-          // createRide={createRide}
+          createRide={createRide}
           pickup={pickup}
           destination={destination}
           fare={fare}
           vehicleType={vehicleType}
+          passenger={user}
           setConfirmRidePanel={setConfirmRidePanel}
           setVehicleFound={setVehicleFound}
         />
@@ -324,7 +330,7 @@ const Home = () => {
         className="fixed w-full z-10 bottom-0 translate-y-full"
       >
         <LookingForDriver
-          // createRide={createRide}
+          createRide={createRide}
           pickup={pickup}
           destination={destination}
           fare={fare}
