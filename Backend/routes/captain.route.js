@@ -27,7 +27,40 @@ router.post(
       .withMessage("Capacity must be at least 1"),
     // body("vehicle.vehicleType")
     //   .isIn(["car", "motorcycle", "auto"])
-    //   .withMessage("Invalid vehicle type"),
+    //   .withMessage("Invalid vehi
+    // 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   ],
   captainController.registerCaptain
 );
