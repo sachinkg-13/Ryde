@@ -1,7 +1,7 @@
-# Taxi Application
+# RYDE (Taxi Application)
 
 ## Description
-This project is a comprehensive full-stack taxi application designed to streamline ride-hailing services. It features a powerful backend built with Node.js, Express, MongoDB, and JWT as well as a dynamic React-based frontend developed with Vite. Real-time functionalities like live location updates are handled using Socket.io, while mapping and navigation are powered by the Google Maps API.
+Ryde is a comprehensive full-stack taxi application designed to streamline ride-hailing services. It features a powerful backend built with Node.js, Express, MongoDB, and JWT as well as a dynamic React-based frontend developed with Vite. Real-time functionalities like live location updates are handled using Socket.io, while mapping and navigation are powered by the Google Maps API.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -39,8 +39,8 @@ A full-stack taxi application that provides a robust backend API and a responsiv
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/sachinkg-13/Taxi-App.git
-cd uber-backend
+git clone https://github.com/sachinkg-13/Ryde.git
+cd Ryde
 ```
 
 ### Setup Backend
@@ -125,16 +125,22 @@ Access the frontend in your browser at the provided local URL (typically [http:/
 
 ### Home Page (User)
 ![Home Page](./screenshots/home_page.png)
-// A screenshot of the user home page displaying ride options and current ride status.
+<!--// A screenshot of the user home page displaying ride options and current ride status.-->
 
 ### Captain Home Page
 ![Captain Home Page](./screenshots/captain_home.png)
-// A screenshot of the captain home page displaying ride requests and real-time navigation.
+<!--// A screenshot of the captain home page displaying ride requests and real-time navigation.
 
-// You can add more screenshots as required
+// You can add more screenshots as required-->
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 This project is licensed under the MIT License.
+
+<hr>
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&center=true&width=435&lines=Happy+Coding!+😊" alt="Happy Coding">
+</p>
