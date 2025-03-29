@@ -13,6 +13,7 @@ import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import LiveTracking from "../components/LiveTracking";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -101,30 +102,49 @@ const Home = () => {
     e.preventDefault();
   };
 
-  useGSAP(
-    function () {
-      if (panelOpen) {
-        gsap.to(panelRef.current, {
-          height: "70%",
-          padding: 24,
-          // opacity:1
-        });
-        gsap.to(panelCloseRef.current, {
-          opacity: 1,
-        });
-      } else {
-        gsap.to(panelRef.current, {
-          height: "0%",
-          padding: 0,
-          // opacity:0
-        });
-        gsap.to(panelCloseRef.current, {
-          opacity: 0,
-        });
-      }
-    },
-    [panelOpen]
-  );
+  // useGSAP(
+  //   function () {
+  //     if (panelOpen) {
+  //       gsap.to(panelRef.current, {
+  //         height: "70%",
+  //         // position: absolute,
+  //         // padding: 24,
+  //         // opacity:1
+  //       });
+  //       gsap.to(panelCloseRef.current, {
+  //         opacity: 1,
+  //       });
+  //     } else {
+  //       gsap.to(panelRef.current, {
+  //         height: "0%",
+  //         padding: 0,
+  //         // opacity:0
+  //       });
+  //       gsap.to(panelCloseRef.current, {
+  //         opacity: 0,
+  //       });
+  //     }
+  //   },
+  //   [panelOpen]
+  // );
+
+  useGSAP(() => {
+    if (panelOpen) {
+      gsap.to(panelRef.current, {
+        height: "300px", // Adjust height dynamically
+        opacity: 1,
+        padding: "5px",
+      });
+      gsap.to(panelCloseRef.current, { opacity: 1 });
+    } else {
+      gsap.to(panelRef.current, {
+        height: "0px",
+        opacity: 0,
+        padding: 0,
+      });
+      gsap.to(panelCloseRef.current, { opacity: 0 });
+    }
+  }, [panelOpen]);
 
   useGSAP(
     function () {
@@ -221,81 +241,181 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen bg-green-300 relative overflow-hidden">
-      <img
-        className="w-16 absolute left-5 top-5"
-        src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-        alt=""
-      />
+    <div className="h-screen relative bg-white overflow-hidden">
+      <Navbar />
       {/* image for temporary use  */}
-      <div className="h-screen w-screen">
-        <LiveTracking />
+      <div className="hidden">
+        <main className="flex h-full gap-6 py-6">
+          {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div> */}
+          <div className="relative flex flex-col justify-start items-start sm:w-[25vw]">
+            <div className="h-[40%] md:w-[100%] mx-auto rounded-[10px] p-6 bg-white relative border border-gray-200">
+              <h5
+                ref={panelCloseRef}
+                onClick={() => {
+                  setPanelOpen(false);
+                }}
+                className="absolute opacity-0 right-6 top-6 text-2xl"
+              >
+                <i className="ri-arrow-down-wide-line cursor-pointer"></i>{" "}
+              </h5>
+              <h4 className="text-2xl font-semibold">Find a trip</h4>
+              <form
+                className="relative py-3"
+                onSubmit={(e) => {
+                  submitHandler(e);
+                }}
+              >
+                <div className="line absolute h-16 w-1 top-[50%] -translate-y-1/2 left-5 bg-gray-700 rounded-full"></div>
+                <input
+                  onClick={() => {
+                    setPanelOpen(true);
+                    setActiveField("pickup");
+                  }}
+                  value={pickup}
+                  onChange={handlePickupChange}
+                  className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full"
+                  type="text"
+                  placeholder="Add a pick-up location"
+                />
+                <input
+                  onClick={() => {
+                    setPanelOpen(true);
+                    setActiveField("destination");
+                  }}
+                  value={destination}
+                  onChange={handleDestinationChange}
+                  className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full  mt-3"
+                  type="text"
+                  placeholder="Enter your destination"
+                />
+              </form>
+              <button
+                onClick={findTrip}
+                className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
+              >
+                Find Trip
+              </button>
+              <div
+                ref={panelRef}
+                className="bg-green-300 h-0 absolute -bottom-10 w-full transition-all duration-500 ease-in-out"
+              >
+                <LocationSearchPanel
+                  suggestions={
+                    activeField === "pickup"
+                      ? pickupSuggestions
+                      : destinationSuggestions
+                  }
+                  setPanelOpen={setPanelOpen}
+                  setVehiclePanel={setVehiclePanel}
+                  setPickup={setPickup}
+                  setDestination={setDestination}
+                  activeField={activeField}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="relative h-screen w-screen sm:h-[85vh] sm:w-[75vw] px-2">
+            <LiveTracking />
+          </div>
+        </main>
       </div>
-      <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">
-        <div className="h-[40%] md:w-[30%] mx-auto rounded-lg p-6 bg-white relative">
-          <h5
-            ref={panelCloseRef}
-            onClick={() => {
-              setPanelOpen(false);
-            }}
-            className="absolute opacity-0 right-6 top-6 text-2xl"
-          >
-            <i className="ri-arrow-down-wide-line cursor-pointer"></i>{" "}
-          </h5>
-          <h4 className="text-2xl font-semibold">Find a trip</h4>
-          <form
-            className="relative py-3"
-            onSubmit={(e) => {
-              submitHandler(e);
-            }}
-          >
-            <div className="line absolute h-16 w-1 top-[50%] -translate-y-1/2 left-5 bg-gray-700 rounded-full"></div>
-            <input
-              onClick={() => {
-                setPanelOpen(true);
-                setActiveField("pickup");
-              }}
-              value={pickup}
-              onChange={handlePickupChange}
-              className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full"
-              type="text"
-              placeholder="Add a pick-up location"
-            />
-            <input
-              onClick={() => {
-                setPanelOpen(true);
-                setActiveField("destination");
-              }}
-              value={destination}
-              onChange={handleDestinationChange}
-              className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full  mt-3"
-              type="text"
-              placeholder="Enter your destination"
-            />
-          </form>
-          <button
-            onClick={findTrip}
-            className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
-          >
-            Find Trip
-          </button>
+
+      <main className="flex h-full gap-6 py-6">
+        <div className="relative flex flex-col justify-start items-start sm:w-[25vw]">
+          <div className="h-[40%] md:w-[100%] mx-auto rounded-[10px] p-6 bg-white relative border border-gray-200">
+            <h5
+              ref={panelCloseRef}
+              onClick={() => setPanelOpen(false)}
+              className="absolute opacity-0 right-6 top-6 text-2xl cursor-pointer"
+            >
+              <i className="ri-arrow-down-wide-line"></i>
+            </h5>
+            <h4 className="text-2xl font-semibold">Find a trip</h4>
+
+            <form className="relative py-3" onSubmit={submitHandler}>
+              <div className="line absolute h-16 w-1 top-[50%] -translate-y-1/2 left-5 bg-gray-700 rounded-full"></div>
+
+              {/* Pickup Input */}
+              <div className="relative">
+                <input
+                  onFocus={() => {
+                    setPanelOpen(true);
+                    setActiveField("pickup");
+                  }}
+                  onBlur={() => {
+                    if (!pickup) setPanelOpen(false);
+                  }}
+                  value={pickup}
+                  onChange={handlePickupChange}
+                  className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full  focus:outline-none focus:ring-0"
+                  type="text"
+                  placeholder="Add a pick-up location"
+                />
+
+                {/* Pickup Location Search Panel */}
+                {activeField === "pickup" && (
+                  <div
+                    ref={panelRef}
+                    className="absolute left-0 top-full w-full bg-white border border-gray-200 shadow-lg rounded-md mt-1 max-h-[400px] overflow-y-auto transition-all duration-500 ease-in-out z-10"
+                  >
+                    <LocationSearchPanel
+                      suggestions={pickupSuggestions}
+                      setPanelOpen={setPanelOpen}
+                      setPickup={setPickup}
+                      activeField={activeField}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Destination Input */}
+              <div className="relative mt-3">
+                <input
+                  onFocus={() => {
+                    setPanelOpen(true);
+                    setActiveField("destination");
+                  }}
+                  onBlur={() => {
+                    if (!destination) setPanelOpen(false);
+                  }}
+                  value={destination}
+                  onChange={handleDestinationChange}
+                  className="bg-[#eee] px-12 py-2 text-lg rounded-lg w-full focus:outline-none focus:ring-0"
+                  type="text"
+                  placeholder="Enter your destination"
+                />
+
+                {/* Destination Location Search Panel */}
+                {activeField === "destination" && (
+                  <div
+                    ref={panelRef}
+                    className="absolute left-0 top-full w-full bg-white border border-gray-200 shadow-lg rounded-md mt-1 max-h-[400px] overflow-y-auto transition-all duration-500 ease-in-out"
+                  >
+                    <LocationSearchPanel
+                      suggestions={destinationSuggestions}
+                      setPanelOpen={setPanelOpen}
+                      setDestination={setDestination}
+                      activeField={activeField}
+                    />
+                  </div>
+                )}
+              </div>
+            </form>
+
+            <button
+              onClick={findTrip}
+              className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
+            >
+              Find Trip
+            </button>
+          </div>
         </div>
 
-        <div ref={panelRef} className="bg-white h-0">
-          <LocationSearchPanel
-            suggestions={
-              activeField === "pickup"
-                ? pickupSuggestions
-                : destinationSuggestions
-            }
-            setPanelOpen={setPanelOpen}
-            setVehiclePanel={setVehiclePanel}
-            setPickup={setPickup}
-            setDestination={setDestination}
-            activeField={activeField}
-          />
+        <div className="relative h-screen w-screen sm:h-[85vh] sm:w-[75vw] px-2">
+          <LiveTracking />
         </div>
-      </div>
+      </main>
 
       <div
         ref={vehiclePanelRef}
