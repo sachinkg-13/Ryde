@@ -55,8 +55,8 @@ const CaptainSignup = () => {
     setVehicleType("");
   };
   return (
-    <div className="py-5 px-5 h-screen flex flex-col justify-between">
-      <div>
+    <div className="p-7 bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1619059558110-c45be64b73ae?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] h-screen pt-8 flex justify-between flex-col w-full ">
+      <div className="bg-white pb-8 py-4 px-4 w-1/3 rounded-lg shadow-md mx-auto h-full flex flex-col">
         <img
           className="w-20 mb-3"
           src="https://www.svgrepo.com/show/505031/uber-driver.svg"
@@ -74,7 +74,7 @@ const CaptainSignup = () => {
           <div className="flex gap-4 mb-7">
             <input
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
               type="text"
               placeholder="First name"
               value={firstName}
@@ -84,7 +84,7 @@ const CaptainSignup = () => {
             />
             <input
               required
-              className="bg-[#eeeeee] w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
               type="text"
               placeholder="Last name"
               value={lastName}
@@ -103,7 +103,7 @@ const CaptainSignup = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
+            className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
             type="email"
             placeholder="email@example.com"
           />
@@ -111,7 +111,7 @@ const CaptainSignup = () => {
           <h3 className="text-lg font-medium mb-2">Enter Password</h3>
 
           <input
-            className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
+            className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -124,7 +124,7 @@ const CaptainSignup = () => {
           <div className="flex gap-4 mb-7">
             <input
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
               type="text"
               placeholder="Vehicle Color"
               value={vehicleColor}
@@ -134,7 +134,7 @@ const CaptainSignup = () => {
             />
             <input
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
               type="text"
               placeholder="Vehicle Plate"
               value={vehiclePlate}
@@ -146,7 +146,7 @@ const CaptainSignup = () => {
           <div className="flex gap-4 mb-7">
             <input
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
               type="number"
               placeholder="Vehicle Capacity"
               value={vehicleCapacity}
@@ -156,18 +156,18 @@ const CaptainSignup = () => {
             />
             <select
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border placeholder:text-base text-black text-base"
               value={vehicleType}
               onChange={(e) => {
                 setVehicleType(e.target.value);
               }}
             >
-              <option value="" disabled>
+              <option value="" disabled  className="text-[#9caac5] bg-gray-100">
                 Select Vehicle Type
               </option>
-              <option value="car">Car</option>
-              <option value="auto">Auto</option>
-              <option value="moto">Motorcycle</option>
+              <option value="car"  className="text-black bg-white">Car</option>
+              <option value="auto"  className="text-black bg-white">Auto</option>
+              <option value="moto"  className="text-black bg-white">Motorcycle</option>
             </select>
           </div>
 
@@ -183,7 +183,7 @@ const CaptainSignup = () => {
         </p>
       </div>
       <div>
-        <p className="text-[10px] leading-tight">
+        <p className="text-[10px] leading-tight text-gray-400">
           This site is protected by reCAPTCHA and the{" "}
           <span className="underline">Google Privacy Policy</span> and{" "}
           <span className="underline">Terms of Service apply</span>.

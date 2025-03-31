@@ -44,8 +44,8 @@ const UserSignup = () => {
   };
   return (
     <div>
-      <div className="p-7 h-screen flex flex-col justify-between">
-        <div>
+      <div className="p-7 bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1619059558110-c45be64b73ae?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] h-screen pt-8 flex justify-between flex-col w-full ">
+        <div className="bg-white pb-8 py-4 px-4 w-1/3 rounded-lg shadow-md mx-auto h-full flex flex-col">
           <img
             className="w-16 mb-10"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYQy-OIkA6In0fTvVwZADPmFFibjmszu2A0g&s"
@@ -63,7 +63,7 @@ const UserSignup = () => {
             <div className="flex gap-4 mb-7">
               <input
                 required
-                className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
+                className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
                 type="text"
                 placeholder="First name"
                 value={firstName}
@@ -73,7 +73,7 @@ const UserSignup = () => {
               />
               <input
                 required
-                className="bg-[#eeeeee] w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
+                className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base"
                 type="text"
                 placeholder="Last name"
                 value={lastName}
@@ -90,7 +90,7 @@ const UserSignup = () => {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
-              className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
               type="email"
               placeholder="email@example.com"
             />
@@ -98,7 +98,7 @@ const UserSignup = () => {
             <h3 className="text-lg font-medium mb-2">Enter Password</h3>
 
             <input
-              className="bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
+              className="bg-[#eeeeee] ring-0 focus:ring-0 focus:outline-none mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -119,7 +119,7 @@ const UserSignup = () => {
             </Link>
           </p>
         </div>
-        <div>
+        <div className="text-gray-400">
           <p className="text-[10px] leading-tight">
             This site is protected by reCAPTCHA and the{" "}
             <span className="underline">Google Privacy Policy</span> and{" "}
