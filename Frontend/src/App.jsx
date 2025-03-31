@@ -16,7 +16,7 @@ import CaptainRiding from "./pages/CaptainRiding";
 
 const App = () => {
   return (
-    <div className="max-w-screen-2xl mx-auto">
+    <div className="">
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<UserLogin />} />
