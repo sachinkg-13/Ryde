@@ -1,18 +1,20 @@
+import { ArrowLeft } from "lucide-react";
 import React from "react";
 
 const VehiclePanel = (props) => {
   // console.log(props.fare);
   return (
-    <div className=" md:w-[30%] mx-auto bg-white relative  px-3  py-10 pt-12 rounded-lg">
+    <div className="mx-auto bg-white relative  px-3  py-10 rounded-lg">
       <h5
         className="p-1 text-center w-[93%] absolute top-0"
         onClick={() => {
           props.setVehiclePanel(false);
         }}
       >
+        <ArrowLeft className="text-3xl text-black font-bold cursor-pointer" />
         <i className="text-3xl text-gray-200 ri-arrow-down-wide-line cursor-pointer"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
+      <h3 className="text-4xl font-bold mb-5">Choose a Vehicle</h3>
       <div
         onClick={() => {
           props.setConfirmRidePanel(true);

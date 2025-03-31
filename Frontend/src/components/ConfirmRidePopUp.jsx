@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -31,15 +32,15 @@ const ConfirmRidePopUp = (props) => {
     }
   };
   return (
-    <div>
+    <div className="mx-auto bg-white relative  px-3  py-10  rounded-lg">
       <h5
         className="p-1 text-center w-[93%] absolute top-0"
         onClick={() => {
           props.setRidePopupPanel(false);
         }}
       >
-        <i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
-      </h5>
+        <ArrowLeft className="text-3xl text-black font-bold cursor-pointer" />
+        </h5>
       <h3 className="text-2xl font-semibold mb-5">
         Confirm this ride to Start
       </h3>
